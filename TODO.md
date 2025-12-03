@@ -1,43 +1,49 @@
 # TODO Liste - Mini Projekt AI Systems & Infrastructure
 
 **Deadline:** 4. december 2025 kl. 23:59 (Copenhagen time)  
-**Status:** 3/26 opgaver færdige (12%) - KUN PÅKRÆVET  
+**Status:** 8/26 opgaver færdige (31%) - KUN PÅKRÆVET  
 **Model:** CIFAR-10 (10 klasser image classification)  
 **Server:** EC2 (51.21.200.191)
 
 ---
 
-## ✅ Færdige Opgaver (3)
+## ✅ Færdige Opgaver (8)
 
 ### Setup & Infrastructure
 - [x] **EC2 Server opsætning** - SSH nøgler, SSH config, SSHFS scripts
 - [x] **Verificer Docker og Python** - Installeret på EC2 serveren (Docker 29.1.1, Python 3.12.3)
 - [x] **Dokumentation** - Guides og kravspecifikation oprettet
 
+### API Server Implementation (Jonas)
+- [x] **Opret FastAPI projekt struktur** - `main.py` med FastAPI app, uvicorn server
+- [x] **Implementer CIFAR-10 image classification endpoint** - POST `/image_classify`
+- [x] **Implementer mindst én ekstra route** - GET `/health` og GET `/model/info`
+- [x] **Opret requirements.txt** - Dependencies for CIFAR-10
+
 ---
 
 ## 📋 Opgaver der Mangler - KUN PÅKRÆVET
 
-### 1. API Server Implementation (PÅKRÆVET)
+### 1. API Server Implementation (PÅKRÆVET) ✅ FÆRDIG
 
-#### Planlægning
-- [ ] **Planlæg API server routes** - Mindst 2 routes, hvoraf mindst 1 med AI funktionalitet
-  - Route 1: `/image_classify` (POST) - CIFAR-10 image classification (AI funktionalitet)
-  - Route 2: `/health` (GET) eller `/model/info` (GET) - Utility route
-- [ ] **Forbered CIFAR-10 model** - Vælg implementation (PyTorch eller HuggingFace transformers)
+#### Planlægning ✅
+- [x] **Planlæg API server routes** - Mindst 2 routes, hvoraf mindst 1 med AI funktionalitet ✅
+  - Route 1: `/image_classify` (POST) - CIFAR-10 image classification (AI funktionalitet) ✅
+  - Route 2: `/health` (GET) og `/model/info` (GET) - Utility routes ✅
+- [x] **Forbered CIFAR-10 model** - Vælg implementation (PyTorch torchvision) ✅
 
-#### FastAPI Implementation
-- [ ] **Opret FastAPI projekt struktur** - `main.py` med FastAPI app, uvicorn server
-- [ ] **Implementer CIFAR-10 image classification endpoint** - POST `/image_classify`
-  - Modtag base64 encoded image eller file upload
-  - Load CIFAR-10 model (fx `torchvision.models` eller HuggingFace)
-  - Preprocess image til CIFAR-10 format (32x32 RGB)
-  - Kør inference
-  - Return top predictions med confidence scores
-- [ ] **Implementer mindst én ekstra route** - Fx GET `/health` eller GET `/model/info`
-  - `/health`: Return server status
-  - `/model/info`: Return model information (CIFAR-10, 10 classes, etc.)
-- [ ] **Forståelse af koden** - Skal kunne forklare CIFAR-10 model og API implementation
+#### FastAPI Implementation ✅
+- [x] **Opret FastAPI projekt struktur** - `main.py` med FastAPI app, uvicorn server ✅
+- [x] **Implementer CIFAR-10 image classification endpoint** - POST `/image_classify` ✅
+  - Modtag base64 encoded image ✅
+  - Load CIFAR-10 model (ResNet-18 modificeret til 10 klasser) ✅
+  - Preprocess image til CIFAR-10 format (32x32 RGB) ✅
+  - Kør inference ✅
+  - Return top predictions med confidence scores ✅
+- [x] **Implementer mindst én ekstra route** - GET `/health` og GET `/model/info` ✅
+  - `/health`: Return server status ✅
+  - `/model/info`: Return model information (CIFAR-10, 10 classes) ✅
+- [x] **Forståelse af koden** - Skal kunne forklare CIFAR-10 model og API implementation ✅
 
 ---
 
@@ -222,18 +228,18 @@
 ### FASE 2: API Server Implementation (Opdelt arbejde) 🔀
 
 #### Jonas - FastAPI & CIFAR-10 Backend (5 opgaver)
-- [ ] **Opret FastAPI projekt struktur** - `main.py` med FastAPI app, uvicorn server
-- [ ] **Implementer CIFAR-10 image classification endpoint** - POST `/image_classify`
-  - Load CIFAR-10 model (fx `torchvision.models` eller pretrained)
-  - Modtag image (base64 eller file upload)
-  - Preprocess image til CIFAR-10 format (32x32 RGB)
-  - Kør inference
-  - Return top predictions med confidence scores
-- [ ] **Implementer mindst én ekstra route** - GET `/health` eller GET `/model/info`
-  - `/health`: Return server status
-  - `/model/info`: Return CIFAR-10 model information (10 classes)
-- [ ] **Opret requirements.txt** - Dependencies for CIFAR-10
-- [ ] **Forståelse af koden** - Skal kunne forklare CIFAR-10 model og API implementation
+- [x] **Opret FastAPI projekt struktur** - `main.py` med FastAPI app, uvicorn server ✅
+- [x] **Implementer CIFAR-10 image classification endpoint** - POST `/image_classify` ✅
+  - Load CIFAR-10 model (fx `torchvision.models` eller pretrained) ✅
+  - Modtag image (base64 eller file upload) ✅
+  - Preprocess image til CIFAR-10 format (32x32 RGB) ✅
+  - Kør inference ✅
+  - Return top predictions med confidence scores ✅
+- [x] **Implementer mindst én ekstra route** - GET `/health` eller GET `/model/info` ✅
+  - `/health`: Return server status ✅
+  - `/model/info`: Return CIFAR-10 model information (10 classes) ✅
+- [x] **Opret requirements.txt** - Dependencies for CIFAR-10 ✅
+- [x] **Forståelse af koden** - Skal kunne forklare CIFAR-10 model og API implementation ✅
 
 **Jonas' filer (arbejder uafhængigt):**
 - `main.py` (hovedfil med FastAPI app og routes)
