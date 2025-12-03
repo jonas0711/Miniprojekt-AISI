@@ -243,27 +243,6 @@
 - `requirements.txt`
 - Eventuelt `cifar10_model.py` (CIFAR-10 model loading og inference)
 
-#### Peter - Docker & Containerization (3 opgaver)
-- [ ] **Opret Dockerfile** - Containerization er PÅKRÆVET
-  - FROM python:3.11-slim
-  - WORKDIR /app
-  - COPY requirements.txt .
-  - RUN pip install --no-cache-dir -r requirements.txt
-  - COPY . .
-  - EXPOSE 8000
-  - CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
-- [ ] **Test Docker build lokalt** - `docker build -t cifar10-api:v1.0 .` og test med `docker run -p 8000:8000`
-- [ ] **Verificer CIFAR-10 model virker i container** - Test image classification lokalt i container
-
-**Peter's filer (arbejder uafhængigt):**
-- `Dockerfile`
-- Eventuelt `.dockerignore` (optional)
-
-**Git workflow:**
-- Jonas arbejder på `jonas/cifar10-api` branch
-- Peter arbejder på `peter/docker` branch (efter Jonas har committet `requirements.txt`)
-- Ingen overlap - hver sin filer
-
 ---
 
 ### FASE 3: Docker & Deployment (Opdelt arbejde) 🐳
