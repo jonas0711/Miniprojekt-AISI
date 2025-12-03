@@ -268,7 +268,7 @@
 
 ### FASE 3: Docker & Deployment (Opdelt arbejde) 🐳
 
-#### Jonas - Docker Setup (3 opgaver)
+#### Peter - Docker Setup (3 opgaver)
 - [ ] **Opret Dockerfile** - Containerization er PÅKRÆVET
   - FROM python:3.11-slim
   - WORKDIR /app
@@ -278,27 +278,27 @@
   - EXPOSE 8000
   - CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
 - [ ] **Test Docker build lokalt** - `docker build -t cifar10-api:v1.0 .` og test med `docker run -p 8000:8000`
-- [ ] **Verificer CIFAR-10 model virker i container** - Test image classification lokalt
+- [ ] **Verificer CIFAR-10 model virker i container** - Test image classification lokalt i container
 
-**Jonas' filer:**
+**Peter's filer (arbejder uafhængigt):**
 - `Dockerfile`
+- Eventuelt `.dockerignore` (optional)
 
-#### Deployment på EC2 (5 opgaver) - Begge har AWS adgang 🔄
-
-**Peter - Initial Deployment (3 opgaver):**
+#### Peter - EC2 Deployment (4 opgaver)
 - [ ] **Upload kode til EC2 serveren** - Via SSHFS (`./mount_ec2.sh`) eller SCP til `/home/ubuntu/`
 - [ ] **Build container på EC2** - `docker build -t cifar10-api:v1.0 .` på serveren
 - [ ] **Kør container på EC2** - Med port mapping:
   - `docker run -d -p 8000:8000 --restart unless-stopped --name cifar10-api cifar10-api:v1.0`
+- [ ] **Test API fra serveren** - Lokalt på EC2 med `curl http://localhost:8000/health` og `curl http://localhost:8000/model/info`
 
-**Jonas - Test & Verifikation (2 opgaver):**
-- [ ] **Test API fra serveren** - Lokalt på EC2 med `curl http://localhost:8000/health`
-- [ ] **Verificer forskellige host environments** - Server på EC2 (51.21.200.191:8000), klient på lokal PC (PÅKRÆVET)
+**Peter's område (arbejder uafhængigt):**
+- EC2 server deployment
+- Container management på serveren
+- Server-side testing
 
-**Hvorfor denne opdeling:**
-- Jonas laver Docker setup (kan testes lokalt)
-- Peter deployer på EC2 (har AWS adgang og kan upload/build)
-- Jonas tester (kender API strukturen bedst)
+**Hvorfor Peter:**
+- Har AWS adgang og kan deploye
+- Håndterer hele deployment processen
 
 ---
 
@@ -410,15 +410,17 @@
 
 ---
 
-## 📊 Opgave Oversigt per Person - KUN PÅKRÆVET
+## 📊 Opgave Oversigt per Person - Ligelig Fordeling
 
 | Person | Opgaver | Fokusområde |
 |--------|---------|-------------|
-| **Jonas** | 11 opgaver | FastAPI + CIFAR-10, Docker, Klient, Implementation rapport |
-| **Peter** | 4 opgaver | EC2 Deployment, Deployment rapport |
-| **Begge** | 6 opgaver | Planlægning, Rapport (Introduction/Results/Conclusion), Submission |
+| **Jonas** | 9 opgaver | FastAPI + CIFAR-10 Backend (5), Klientprogram (3), Implementation rapport (1) |
+| **Peter** | 7 opgaver | Docker Setup (3), EC2 Deployment (4), Deployment rapport (1) |
+| **Begge** | 4 opgaver | Planlægning (1), Rapport (Introduction/Results/Conclusion) (3), Submission (2) |
 
-**Total påkrævet opgaver:** 21 (3 allerede færdige = 24 total)
+**Total påkrævede opgaver:** 20 (3 allerede færdige = 23 total)
+
+**Fordeling:** 9 + 7 + 4 = 20 opgaver (mere ligeligt fordelt)
 
 ---
 
