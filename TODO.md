@@ -1,7 +1,9 @@
 # TODO Liste - Mini Projekt AI Systems & Infrastructure
 
 **Deadline:** 4. december 2025 kl. 23:59 (Copenhagen time)  
-**Status:** 3/33 opgaver færdige (9%)
+**Status:** 3/26 opgaver færdige (12%) - KUN PÅKRÆVET  
+**Model:** CIFAR-10 (10 klasser image classification)  
+**Server:** EC2 (51.21.200.191)
 
 ---
 
@@ -14,84 +16,70 @@
 
 ---
 
-## 📋 Opgaver der Mangler (36)
+## 📋 Opgaver der Mangler - KUN PÅKRÆVET
 
-### 1. API Server Implementation (15 opgaver)
+### 1. API Server Implementation (PÅKRÆVET)
 
-#### Planlægning (Baseret på Modul 1, 2, 3)
+#### Planlægning
 - [ ] **Planlæg API server routes** - Mindst 2 routes, hvoraf mindst 1 med AI funktionalitet
-- [ ] **Vælg AI model(ler)** - Fra HuggingFace (fx ResNet-18 til image classification - CPU-friendly)
-- [ ] **Design API struktur** - Følg REST principper (GET, POST, PUT, DELETE) fra Modul 1 & 2
+  - Route 1: `/image_classify` (POST) - CIFAR-10 image classification (AI funktionalitet)
+  - Route 2: `/health` (GET) eller `/model/info` (GET) - Utility route
+- [ ] **Forbered CIFAR-10 model** - Vælg implementation (PyTorch eller HuggingFace transformers)
 
-#### FastAPI Fundamentals (Modul 3)
-- [ ] **Opret FastAPI projekt struktur** - main.py med FastAPI app, uvicorn server
-- [ ] **Implementer Pydantic data models** - Request/response models med automatisk validation
-- [ ] **Implementer async support** - Brug async/await for AI model operations (vigtigt fra Modul 3)
-
-#### Routes & Endpoints (Modul 3)
-- [ ] **Implementer mindst én AI endpoint** - Fx `/v1/image_classify` (POST) eller `/v1/conversation` (POST)
-- [ ] **Implementer yderligere routes** - Fx `/v1/model/info` (GET), `/v1/health` (GET), `/v1/usage` (GET)
-- [ ] **Implementer API versioning** - Med APIRouter og prefixes (fx `/v1/`, `/v2/`) - PÅKRÆVET fra Modul 1 & 2
-- [ ] **Implementer error handling** - HTTPException med proper status codes (200, 400, 401, 429, 500) - PÅKRÆVET fra Modul 2
-
-#### Authentication & Security (Modul 3)
-- [ ] **Implementer authentication** - API key authentication med HTTPBearer - PÅKRÆVET/ANBEFALET fra Modul 3
-- [ ] **Implementer protected endpoints** - Beskyt AI endpoints med authentication dependency
-
-#### Database Integration (Modul 3 - Anbefalet)
-- [ ] **Opret SQLAlchemy models** - User model (id, api_key, email, created_at) og APIRequest model (usage tracking)
-- [ ] **Implementer database setup** - SQLite database med engine, SessionLocal, Base.metadata.create_all
-- [ ] **Implementer usage tracking** - Log alle API requests med timestamp, response_time_ms, status_code
-
-#### Rate Limiting (Modul 1 & 2 - Anbefalet)
-- [ ] **Implementer rate limiting** - Sliding window eller token bucket algoritme - ANBEFALET fra Modul 1 & 2
-- [ ] **Rate limit check i routes** - Check rate limits før AI model inference, return 429 ved overskridelse
+#### FastAPI Implementation
+- [ ] **Opret FastAPI projekt struktur** - `main.py` med FastAPI app, uvicorn server
+- [ ] **Implementer CIFAR-10 image classification endpoint** - POST `/image_classify`
+  - Modtag base64 encoded image eller file upload
+  - Load CIFAR-10 model (fx `torchvision.models` eller HuggingFace)
+  - Preprocess image til CIFAR-10 format (32x32 RGB)
+  - Kør inference
+  - Return top predictions med confidence scores
+- [ ] **Implementer mindst én ekstra route** - Fx GET `/health` eller GET `/model/info`
+  - `/health`: Return server status
+  - `/model/info`: Return model information (CIFAR-10, 10 classes, etc.)
+- [ ] **Forståelse af koden** - Skal kunne forklare CIFAR-10 model og API implementation
 
 ---
 
-### 2. Docker Setup (4 opgaver) - Modul 5
+### 2. Docker Setup (PÅKRÆVET)
 
-- [ ] **Opret Dockerfile** - Med proper layering fra Modul 5:
-  - FROM python:3.11-slim (base layer)
+- [ ] **Opret Dockerfile** - Containerization er PÅKRÆVET
+  - FROM python:3.11-slim
   - WORKDIR /app
-  - COPY requirements.txt først (for layer caching)
-  - RUN pip install --no-cache-dir -r requirements.txt (dependency layer)
-  - COPY . . (application layer)
+  - COPY requirements.txt .
+  - RUN pip install --no-cache-dir -r requirements.txt
+  - COPY . .
   - EXPOSE 8000
   - CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
-- [ ] **Opret requirements.txt** - Med alle dependencies:
-  - fastapi==0.104.1
-  - uvicorn[standard]==0.24.0
-  - pydantic==2.5.0
-  - sqlalchemy==2.0.23 (hvis database)
-  - transformers==4.35.0
-  - torch==2.1.0
-  - pillow==10.1.0
-  - python-multipart==0.0.6
-- [ ] **Opret .dockerignore** - Exclude __pycache__, *.pyc, .env, venv/, *.db, .git (anbefalet fra Modul 5)
-- [ ] **Test Docker build lokalt** - `docker build -t ai-api-server:v1.0 .` og test med `docker run -p 8000:8000`
+- [ ] **Opret requirements.txt** - Med dependencies for CIFAR-10:
+  - fastapi
+  - uvicorn[standard]
+  - torch (for CIFAR-10 model)
+  - torchvision (CIFAR-10 models)
+  - pillow (image processing)
+  - python-multipart (file uploads)
+- [ ] **Test Docker build lokalt** - `docker build -t cifar10-api:v1.0 .` og test med `docker run -p 8000:8000`
 
 ---
 
-### 3. Deployment på EC2 (7 opgaver) - Modul 6
+### 3. Deployment på EC2 (PÅKRÆVET)
 
-- [ ] **Upload kode til EC2 serveren** - Via SSHFS (`./mount_ec2.sh`) eller SCP
-- [ ] **Build container på EC2** - `docker build -t ai-api-server:v1.0 .` på serveren
-- [ ] **Konfigurer AWS security groups** - Åbn port 8000 (og 22 for SSH) i AWS console - PÅKRÆVET fra Modul 6
-- [ ] **Konfigurer UFW firewall** - `sudo ufw allow 8000/tcp` på serveren (ekstra lag af beskyttelse)
-- [ ] **Kør container på EC2** - Med `--restart unless-stopped` og port mapping:
-  - `docker run -d -p 8000:8000 --restart unless-stopped --name ai-api ai-api-server:v1.0`
-  - Hvis database: `-v ~/ai-data:/app/data` for persistent data
-- [ ] **Test API fra serveren** - Lokalt med `curl http://localhost:8000` og `curl http://localhost:8000/v1/health`
-- [ ] **Sæt HTTPS op** - Med domain, DNS records, Nginx + Certbot eller Traefik (optional achievement fra Modul 6)
+- [ ] **Upload kode til EC2 serveren** - Via SSHFS (`./mount_ec2.sh`) eller SCP til `/home/ubuntu/`
+- [ ] **Build container på EC2** - `docker build -t cifar10-api:v1.0 .` på serveren
+- [ ] **Kør container på EC2** - Med port mapping:
+  - `docker run -d -p 8000:8000 --restart unless-stopped --name cifar10-api cifar10-api:v1.0`
+- [ ] **Test API fra serveren** - Lokalt med `curl http://localhost:8000/health` og verificer serveren kører
+- [ ] **Verificer forskellige host environments** - Server på EC2 (51.21.200.191), klient på lokal PC (PÅKRÆVET)
 
 ---
 
-### 4. Klientprogram (3 opgaver) - Modul 1 & 3
+### 4. Klientprogram (PÅKRÆVET)
 
-- [ ] **Opret klientprogram** - Python script der kan kalde API serveren (fx med requests library)
-- [ ] **Implementer API kald** - Test alle endpoints (GET /v1/model/info, POST /v1/image_classify, etc.)
-- [ ] **Test klient fra lokal maskine** - Mod serveren på EC2 (demonstrerer forskellige host environments)
+- [ ] **Opret klientprogram** - Python script (`client.py`) der kan kalde API serveren
+- [ ] **Implementer API kald** - Test endpoints:
+  - GET `/health` - Tjek server status
+  - POST `/image_classify` - Send billede og få CIFAR-10 predictions
+- [ ] **Test klient fra lokal maskine** - Mod serveren på EC2 (51.21.200.191:8000) - PÅKRÆVET (forskellige host environments)
 
 ---
 
@@ -114,20 +102,22 @@
 
 ---
 
-## 📊 Status Oversigt
+## 📊 Status Oversigt - KUN PÅKRÆVET
 
 | Kategori | Færdige | Mangler | Total |
 |----------|---------|---------|-------|
-| Setup & Infrastructure | 3 | 0 | 3 |
-| API Server Implementation | 0 | 15 | 15 |
-| Docker Setup | 0 | 4 | 4 |
-| Deployment på EC2 | 0 | 7 | 7 |
+| Setup & Infrastructure | 3 ✅ | 0 | 3 |
+| API Server Implementation | 0 | 5 | 5 |
+| Docker Setup | 0 | 3 | 3 |
+| Deployment på EC2 | 0 | 5 | 5 |
 | Klientprogram | 0 | 3 | 3 |
 | Rapport | 0 | 5 | 5 |
 | Submission | 0 | 2 | 2 |
-| **TOTAL** | **3** | **36** | **39** |
+| **TOTAL** | **3** | **23** | **26** |
 
-**Procent færdig:** 8% (3/39)
+**Procent færdig:** 12% (3/26)
+
+**Note:** Kun påkrævede opgaver er inkluderet. Tips og optional achievements er fjernet.
 
 ---
 
@@ -156,29 +146,28 @@
 - ✅ FastAPI anbefalet
 - ✅ Forståelse af koden påkrævet
 
-### Anbefalede Features (Baseret på Undervisning)
+### Klassificering baseret på Miniprojekt Krav
 
-#### Fra Modul 1 & 2 (Påkrævet/Anbefalet):
-- ✅ **API versioning** (`/v1/`, `/v2/`) - PÅKRÆVET, URL path versioning
-- ✅ **REST principper** - Proper HTTP metoder (GET, POST, PUT, DELETE) - PÅKRÆVET
-- ✅ **Rate limiting** - Sliding window eller token bucket - ANBEFALET
-- ✅ **Error handling** - Proper status codes (200, 400, 401, 429, 500) - PÅKRÆVET
-- ⭐ **Streaming support** - SSE for conversational endpoints (optional)
+#### ✅ PÅKRÆVET (Minimum for at opfylde krav):
+- **API Server:** Mindst 2 routes, hvoraf mindst 1 med AI funktionalitet
+- **FastAPI:** Framework (anbefalet)
+- **AI Model:** Fra HuggingFace eller anden kilde
+- **Containerization:** Docker (PÅKRÆVET)
+- **Dockerfile:** Med proper layering (TIP)
+- **Deployment:** Server og klient på forskellige host environments (PÅKRÆVET)
+- **Klientprogram:** Kan demonstrere serverens funktionalitet
 
-#### Fra Modul 3 (Påkrævet/Anbefalet):
-- ✅ **Pydantic data models** - Request/response validation - PÅKRÆVET
-- ✅ **Async support** - async/await for AI model operations - PÅKRÆVET
-- ✅ **Authentication** - API key med HTTPBearer - PÅKRÆVET/ANBEFALET
-- ✅ **Database integration** - SQLAlchemy til user management og usage tracking - ANBEFALET
+#### 💡 TIPS (Anbefalet men ikke påkrævet):
+- **REST principper** - API endpoints design
+- **API versioning** - Overvej versionering, selv hvis kun v1
+- **Database integration** - API key management
+- **Dockerfile layering** - Proper layering
+- **Authentication** - API key management (hvis database implementeres)
 
-#### Fra Modul 5 (Påkrævet):
-- ✅ **Dockerfile layering** - Proper layer caching (requirements først) - PÅKRÆVET
-- ✅ **.dockerignore** - Exclude unødvendige filer - ANBEFALET
-
-#### Fra Modul 6 (Påkrævet/Optional):
-- ✅ **Security groups** - Konfigurer AWS firewall - PÅKRÆVET
-- ✅ **UFW firewall** - Ekstra lag af beskyttelse - ANBEFALET
-- ⭐ **HTTPS setup** - Domain, DNS, SSL certifikat (optional achievement)
+#### 🚀 OPTIONAL ACHIEVEMENTS (Ekstra features):
+- **Rate limiting** - Avanceret rate limit algoritme
+- **Public access** - Domain navn, SSL certifikat
+- **High availability** - Avancerede deployment strategier
 
 ---
 
@@ -209,6 +198,205 @@
 - UFW firewall setup - **ANBEFALET**
 - Container persistence (`--restart unless-stopped`)
 - HTTPS setup (optional achievement)
+
+---
+
+---
+
+## 👥 Opdeling mellem Peter og Jonas - KUN PÅKRÆVET
+
+### FASE 1: Planlægning (Sammen - Fælles beslutninger) 🔄
+
+**Begge skal være med:**
+- [ ] **Planlæg API server routes** - Diskuter routes (sammen)
+  - Route 1: `/image_classify` (POST) - CIFAR-10 classification (AI funktionalitet) ✅
+  - Route 2: `/health` (GET) eller `/model/info` (GET) - Utility route ✅
+- [ ] **Forbered CIFAR-10 model** - Beslut implementation (PyTorch torchvision eller HuggingFace)
+
+**Hvorfor sammen:** Disse er fundamentale design beslutninger der påvirker hele projektet.
+
+---
+
+### FASE 2: API Server Implementation (Opdelt arbejde) 🔀
+
+#### Jonas - FastAPI & CIFAR-10 Implementation (5 opgaver)
+- [ ] **Opret FastAPI projekt struktur** - `main.py` med FastAPI app, uvicorn server
+- [ ] **Implementer CIFAR-10 image classification endpoint** - POST `/image_classify`
+  - Load CIFAR-10 model (fx `torchvision.models` eller pretrained)
+  - Modtag image (base64 eller file upload)
+  - Preprocess image til CIFAR-10 format (32x32 RGB)
+  - Kør inference
+  - Return top predictions med confidence scores
+- [ ] **Implementer mindst én ekstra route** - GET `/health` eller GET `/model/info`
+  - `/health`: Return server status
+  - `/model/info`: Return CIFAR-10 model information (10 classes: airplane, car, bird, cat, deer, dog, frog, horse, ship, truck)
+- [ ] **Opret requirements.txt** - Dependencies for CIFAR-10:
+  - fastapi
+  - uvicorn[standard]
+  - torch
+  - torchvision (CIFAR-10 models)
+  - pillow (image processing)
+  - python-multipart (file uploads)
+- [ ] **Forståelse af koden** - Skal kunne forklare CIFAR-10 model og API implementation
+
+**Jonas' filer:**
+- `main.py` (hovedfil med FastAPI app og routes)
+- `requirements.txt`
+- Eventuelt `cifar10_model.py` (CIFAR-10 model loading og inference)
+
+**Git workflow:**
+- Jonas arbejder på `main` branch eller `jonas/cifar10-api` branch
+- Commit ofte, push til GitHub regelmæssigt
+
+---
+
+### FASE 3: Docker & Deployment (Opdelt arbejde) 🐳
+
+#### Jonas - Docker Setup (3 opgaver)
+- [ ] **Opret Dockerfile** - Containerization er PÅKRÆVET
+  - FROM python:3.11-slim
+  - WORKDIR /app
+  - COPY requirements.txt .
+  - RUN pip install --no-cache-dir -r requirements.txt
+  - COPY . .
+  - EXPOSE 8000
+  - CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+- [ ] **Test Docker build lokalt** - `docker build -t cifar10-api:v1.0 .` og test med `docker run -p 8000:8000`
+- [ ] **Verificer CIFAR-10 model virker i container** - Test image classification lokalt
+
+**Jonas' filer:**
+- `Dockerfile`
+
+#### Deployment på EC2 (5 opgaver) - Begge har AWS adgang 🔄
+
+**Peter - Initial Deployment (3 opgaver):**
+- [ ] **Upload kode til EC2 serveren** - Via SSHFS (`./mount_ec2.sh`) eller SCP til `/home/ubuntu/`
+- [ ] **Build container på EC2** - `docker build -t cifar10-api:v1.0 .` på serveren
+- [ ] **Kør container på EC2** - Med port mapping:
+  - `docker run -d -p 8000:8000 --restart unless-stopped --name cifar10-api cifar10-api:v1.0`
+
+**Jonas - Test & Verifikation (2 opgaver):**
+- [ ] **Test API fra serveren** - Lokalt på EC2 med `curl http://localhost:8000/health`
+- [ ] **Verificer forskellige host environments** - Server på EC2 (51.21.200.191:8000), klient på lokal PC (PÅKRÆVET)
+
+**Hvorfor denne opdeling:**
+- Jonas laver Docker setup (kan testes lokalt)
+- Peter deployer på EC2 (har AWS adgang og kan upload/build)
+- Jonas tester (kender API strukturen bedst)
+
+---
+
+### FASE 4: Klientprogram (Opdelt arbejde) 🧪
+
+#### Jonas - Klientprogram (3 opgaver)
+- [ ] **Opret klientprogram** - Python script (`client.py`) med requests library
+- [ ] **Implementer API kald** - Test endpoints:
+  - GET `/health` - Tjek server status
+  - POST `/image_classify` - Send billede og få CIFAR-10 predictions
+- [ ] **Test klient fra lokal maskine** - Mod serveren på EC2 (51.21.200.191:8000) - PÅKRÆVET
+
+**Jonas' filer:**
+- `client.py`
+
+**Hvorfor Jonas:**
+- Jonas har implementeret API'en, så han kender endpoints bedst
+- Kan teste sin egen implementation
+- Demonstrerer forskellige host environments (lokal PC → EC2 server)
+
+---
+
+### FASE 5: Rapport (Opdelt arbejde) 📝
+
+#### Jonas - Implementation Sektion (1 opgave)
+- [ ] **Skriv Implementation sektion** - API server design valg og klient
+  - Forklar CIFAR-10 model valg og implementation
+  - Forklar FastAPI routes (`/image_classify`, `/health` eller `/model/info`)
+  - Forklar klientprogram implementation
+
+#### Peter - Deployment Sektion (1 opgave)
+- [ ] **Skriv Deployment sektion** - Vigtige steps i deployment
+  - Docker containerization
+  - EC2 deployment process
+  - Verificering af forskellige host environments
+
+#### Begge - Fælles Sektioner (3 opgaver)
+- [ ] **Skriv Introduction** - Problem analyse (sammen eller hver sin del)
+- [ ] **Skriv Results sektion** - Evaluering og reflektioner (sammen)
+  - Test CIFAR-10 classification accuracy
+  - API response times
+  - Deployment succes
+- [ ] **Skriv Conclusion** - Afsluttende konklusion (sammen)
+
+**Rapport struktur (3-4 sider):**
+- Title og forfattere (Peter og Jonas)
+- Introduction: Begge bidrager
+- Implementation: Jonas (API server + klient + CIFAR-10)
+- Deployment: Peter (Docker + EC2)
+- Results: Begge (sammen evaluering)
+- Conclusion: Begge (sammen)
+
+---
+
+### FASE 6: Submission (Sammen) 📦
+
+- [ ] **Pak alle filer** - Rapport PDF, kildekode, Dockerfile, requirements.txt, klient
+- [ ] **Upload til DigitalExam** - Før deadline (4. dec 2025 kl. 23:59)
+
+---
+
+## 🔄 Git Workflow - Undgå Merge Conflicts
+
+### Branch Strategi:
+1. **`main`** - Production ready kode
+2. **`jonas/cifar10-api`** - Jonas' API implementation (optional, kan også arbejde direkte på main)
+
+### Arbejdsflow:
+1. **FASE 1:** Begge på `main` (planlægning) - commit sammen
+2. **FASE 2:** 
+   - Jonas: Arbejder på `main` eller `jonas/cifar10-api` branch
+   - Implementerer hele API serveren (CIFAR-10 + FastAPI)
+   - Commit ofte: `git add . && git commit -m "Add CIFAR-10 API endpoint"`
+3. **FASE 3:**
+   - Jonas: Docker setup på `main` eller egen branch
+   - Peter: Deployment på `main` eller egen branch (efter Docker er klar)
+4. **Merge:**
+   - Hvis branches: `git checkout main && git merge jonas/cifar10-api`
+   - Push til GitHub: `git push origin main`
+
+### Kommunikation:
+- **Daily sync:** Diskuter hvilke filer I arbejder på
+- **Before merge:** Tjek `git status` og `git diff` før merge
+- **Koordiner deployment:** Peter venter til Jonas har Docker klar
+
+---
+
+## 📊 Opgave Oversigt per Person - KUN PÅKRÆVET
+
+| Person | Opgaver | Fokusområde |
+|--------|---------|-------------|
+| **Jonas** | 11 opgaver | FastAPI + CIFAR-10, Docker, Klient, Implementation rapport |
+| **Peter** | 4 opgaver | EC2 Deployment, Deployment rapport |
+| **Begge** | 6 opgaver | Planlægning, Rapport (Introduction/Results/Conclusion), Submission |
+
+**Total påkrævet opgaver:** 21 (3 allerede færdige = 24 total)
+
+---
+
+## ⚠️ Vigtige Noter
+
+1. **CIFAR-10 Model:** 
+   - 10 klasser: airplane, car, bird, cat, deer, dog, frog, horse, ship, truck
+   - Input: 32x32 RGB billede
+   - Kan bruge `torchvision.models` eller pretrained CIFAR-10 model
+   - CPU-friendly (perfekt til EC2 serveren uden GPU)
+
+2. **Fælles filer:** `main.py` - Jonas implementerer hele API serveren
+3. **Communication:** Diskuter API interface før implementation
+4. **Testing:** Test lokalt før deployment
+5. **Backup:** Commit ofte, push til GitHub regelmæssigt
+6. **AWS adgang:** Begge har adgang - kan hjælpe hinanden med deployment
+7. **EC2 server:** Koordiner deployment - ikke deploy samtidigt!
+8. **EC2 IP:** 51.21.200.191 - Klient skal connecte til denne adresse
 
 ---
 
