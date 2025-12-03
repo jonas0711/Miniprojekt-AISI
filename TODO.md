@@ -43,7 +43,9 @@
 
 ### 2. Docker Setup (PÅKRÆVET)
 
-- [ ] **Opret Dockerfile** - Containerization er PÅKRÆVET
+**Note:** `requirements.txt` er en del af API Server Implementation (Jonas), men Dockerfile bruger den.
+
+- [ ] **Opret Dockerfile** - Containerization er PÅKRÆVET (modul 5)
   - FROM python:3.11-slim
   - WORKDIR /app
   - COPY requirements.txt .
@@ -51,14 +53,8 @@
   - COPY . .
   - EXPOSE 8000
   - CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
-- [ ] **Opret requirements.txt** - Med dependencies for CIFAR-10:
-  - fastapi
-  - uvicorn[standard]
-  - torch (for CIFAR-10 model)
-  - torchvision (CIFAR-10 models)
-  - pillow (image processing)
-  - python-multipart (file uploads)
 - [ ] **Test Docker build lokalt** - `docker build -t cifar10-api:v1.0 .` og test med `docker run -p 8000:8000`
+- [ ] **Verificer container virker** - Test at API serveren kører korrekt i container
 
 ---
 
@@ -181,28 +177,29 @@
 ## 📚 Referencer til Undervisning
 
 ### Modul 1 & 2: API Fundamentals
-- API versioning (URL path versioning) - **PÅKRÆVET**
-- Rate limiting (sliding window, token bucket) - **ANBEFALET**
-- REST principper - **PÅKRÆVET**
-- Error handling med proper status codes - **PÅKRÆVET**
+- API versioning (URL path versioning) - **TIP** (ikke påkrævet, men anbefalet)
+- Rate limiting (sliding window, token bucket) - **OPTIONAL ACHIEVEMENT**
+- REST principper - **TIP** (anbefalet)
+- Error handling med proper status codes - **TIP** (anbefalet)
 
 ### Modul 3: Wrap AI Models with APIs
-- FastAPI fundamentals (routes, Pydantic, async)
-- API versioning med APIRouter
-- Authentication med HTTPBearer - **PÅKRÆVET/ANBEFALET**
-- Database integration med SQLAlchemy - **ANBEFALET**
-- Usage tracking i database
+- FastAPI fundamentals (routes, Pydantic, async) - **PÅKRÆVET** (FastAPI er anbefalet framework)
+- API versioning med APIRouter - **TIP** (ikke påkrævet)
+- Authentication med HTTPBearer - **TIP** (ikke påkrævet)
+- Database integration med SQLAlchemy - **TIP** (ikke påkrævet)
+- Usage tracking i database - **TIP** (ikke påkrævet)
 
 ### Modul 5: Packaging & Containerization
-- Dockerfile med proper layering - **PÅKRÆVET**
-- Layer caching strategi (requirements først)
-- .dockerignore best practices - **ANBEFALET**
+- Dockerfile - **PÅKRÆVET** (containerization er påkrævet)
+- Dockerfile med proper layering - **TIP** (anbefalet)
+- Layer caching strategi (requirements først) - **TIP** (anbefalet)
+- .dockerignore best practices - **TIP** (anbefalet)
 
 ### Modul 6: Cloud Deployment
-- AWS security groups konfiguration - **PÅKRÆVET**
-- UFW firewall setup - **ANBEFALET**
-- Container persistence (`--restart unless-stopped`)
-- HTTPS setup (optional achievement)
+- AWS security groups konfiguration - **TIP** (anbefalet, men ikke eksplicit påkrævet)
+- UFW firewall setup - **TIP** (anbefalet)
+- Container persistence (`--restart unless-stopped`) - **TIP** (anbefalet)
+- HTTPS setup - **OPTIONAL ACHIEVEMENT**
 
 ---
 
