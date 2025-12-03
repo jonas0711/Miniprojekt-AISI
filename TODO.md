@@ -1,13 +1,13 @@
 # TODO Liste - Mini Projekt AI Systems & Infrastructure
 
 **Deadline:** 4. december 2025 kl. 23:59 (Copenhagen time)  
-**Status:** 8/26 opgaver færdige (31%) - KUN PÅKRÆVET  
+**Status:** 10/26 opgaver færdige (38%) - KUN PÅKRÆVET  
 **Model:** CIFAR-10 (10 klasser image classification)  
 **Server:** EC2 (51.21.200.191)
 
 ---
 
-## ✅ Færdige Opgaver (8)
+## ✅ Færdige Opgaver (10)
 
 ### Setup & Infrastructure
 - [x] **EC2 Server opsætning** - SSH nøgler, SSH config, SSHFS scripts
@@ -19,6 +19,10 @@
 - [x] **Implementer CIFAR-10 image classification endpoint** - POST `/image_classify`
 - [x] **Implementer mindst én ekstra route** - GET `/health` og GET `/model/info`
 - [x] **Opret requirements.txt** - Dependencies for CIFAR-10
+
+### Klientprogram (Jonas)
+- [x] **Opret klientprogram** - Python script (`client.py`) med requests library
+- [x] **Implementer API kald** - GET `/health` og POST `/image_classify`
 
 ---
 
@@ -77,10 +81,10 @@
 
 ### 4. Klientprogram (PÅKRÆVET)
 
-- [ ] **Opret klientprogram** - Python script (`client.py`) der kan kalde API serveren
-- [ ] **Implementer API kald** - Test endpoints:
-  - GET `/health` - Tjek server status
-  - POST `/image_classify` - Send billede og få CIFAR-10 predictions
+- [x] **Opret klientprogram** - Python script (`client.py`) der kan kalde API serveren ✅
+- [x] **Implementer API kald** - Test endpoints: ✅
+  - GET `/health` - Tjek server status ✅
+  - POST `/image_classify` - Send billede og få CIFAR-10 predictions ✅
 - [ ] **Test klient fra lokal maskine** - Mod serveren på EC2 (51.21.200.191:8000) - PÅKRÆVET (forskellige host environments)
 
 ---
@@ -287,10 +291,10 @@
 ### FASE 4: Klientprogram & Verifikation (Opdelt arbejde) 🧪
 
 #### Jonas - Klientprogram (3 opgaver)
-- [ ] **Opret klientprogram** - Python script (`client.py`) med requests library
-- [ ] **Implementer API kald** - Test endpoints:
-  - GET `/health` - Tjek server status
-  - POST `/image_classify` - Send billede og få CIFAR-10 predictions
+- [x] **Opret klientprogram** - Python script (`client.py`) med requests library ✅
+- [x] **Implementer API kald** - Test endpoints: ✅
+  - GET `/health` - Tjek server status ✅
+  - POST `/image_classify` - Send billede og få CIFAR-10 predictions ✅
 - [ ] **Test klient fra lokal maskine** - Mod serveren på EC2 (51.21.200.191:8000) - PÅKRÆVET
 
 **Jonas' filer (arbejder uafhængigt):**
