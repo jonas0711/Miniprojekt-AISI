@@ -10,7 +10,12 @@
 
 ```
 miniproject-aisa/
-├── docs/                    # Dokumentation
+├── main.py                 # FastAPI server (kode)
+├── client.py               # Klientprogram (kode)
+├── requirements.txt        # Python dependencies (kode)
+├── Dockerfile              # Docker containerization (kode)
+├── README.md               # Denne fil
+├── docs/                   # Dokumentation
 │   ├── modules/            # Modul opsummeringer
 │   │   ├── MODUL1_INTERACT_WITH_AI_SYSTEMS.md
 │   │   ├── MODUL2_ADVANCED_APIS.md
@@ -21,14 +26,24 @@ miniproject-aisa/
 │   ├── guides/             # Guides og tutorials
 │   │   ├── EC2_LOGIN_GUIDE.md
 │   │   ├── EC2_FILOVERSIGT.md
-│   │   └── SSHFS_GUIDE.md
-│   └── project/            # Projekt specifik dokumentation
-│       ├── MINIPROJEKT_KRAV.md
-│       └── PROJEKT_STATUS.md
-├── scripts/                 # Utility scripts
-│   ├── mount_ec2.sh        # Mount EC2 serveren lokalt
-│   └── unmount_ec2.sh      # Unmount EC2 serveren
-└── README.md               # Denne fil
+│   │   ├── SSHFS_GUIDE.md
+│   │   └── DEPLOYMENT_GUIDE.md
+│   ├── project/            # Projekt specifik dokumentation
+│   │   ├── MINIPROJEKT_KRAV.md
+│   │   ├── PROJEKT_STATUS.md
+│   │   ├── PROJEKT_OVERBLIK.md
+│   │   └── TODO.md
+│   ├── deployment/         # Deployment logs
+│   │   ├── peter_deploy.md
+│   │   └── JONAS_DEPLOYMENT.md
+│   ├── report/            # Rapport sektioner
+│   │   ├── RAPPORT_INTRODUCTION.md
+│   │   └── RAPPORT_IMPLEMENTATION.md
+│   ├── README_API.md      # API dokumentation
+│   └── VERIFIKATION.md    # Verifikation dokumentation
+└── scripts/                # Utility scripts
+    ├── mount_ec2.sh       # Mount EC2 serveren lokalt
+    └── unmount_ec2.sh     # Unmount EC2 serveren
 ```
 
 ---
@@ -60,6 +75,22 @@ Projekt specifik information:
 
 - **MINIPROJEKT_KRAV.md:** Komplet kravspecifikation for mini projektet
 - **PROJEKT_STATUS.md:** Status over hvad vi har lavet og næste skridt
+- **PROJEKT_OVERBLIK.md:** Overblik over projektet
+- **TODO.md:** Opgaveliste og status
+
+### Deployment Logs (`docs/deployment/`)
+
+Deployment dokumentation:
+
+- **peter_deploy.md:** Peter's deployment log
+- **JONAS_DEPLOYMENT.md:** Jonas' deployment log
+
+### Rapport (`docs/report/`)
+
+Rapport sektioner:
+
+- **RAPPORT_INTRODUCTION.md:** Introduction sektion
+- **RAPPORT_IMPLEMENTATION.md:** Implementation sektion
 
 ---
 
