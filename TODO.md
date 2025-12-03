@@ -1,13 +1,13 @@
 # TODO Liste - Mini Projekt AI Systems & Infrastructure
 
 **Deadline:** 4. december 2025 kl. 23:59 (Copenhagen time)  
-**Status:** 11/26 opgaver færdige (42%) - KUN PÅKRÆVET  
+**Status:** 13/26 opgaver færdige (50%) - KUN PÅKRÆVET  
 **Model:** CIFAR-10 (10 klasser image classification)  
 **Server:** EC2 (51.21.200.191)
 
 ---
 
-## ✅ Færdige Opgaver (11)
+## ✅ Færdige Opgaver (13)
 
 ### Setup & Infrastructure
 - [x] **EC2 Server opsætning** - SSH nøgler, SSH config, SSHFS scripts
@@ -94,8 +94,8 @@
 
 ### 5. Rapport (5 opgaver)
 
-- [ ] **Skriv Introduction** - Med problem analyse
-- [ ] **Skriv Implementation sektion** - API server + klient design valg
+- [x] **Skriv Introduction** - Med problem analyse ✅
+- [x] **Skriv Implementation sektion** - API server + klient design valg ✅
 - [ ] **Skriv Deployment sektion** - Vigtige steps i deployment
 - [ ] **Skriv Results sektion** - Evaluering og reflektioner
 - [ ] **Skriv Conclusion** - Afsluttende konklusion
@@ -318,10 +318,10 @@
 ### FASE 5: Rapport (Opdelt arbejde) 📝
 
 #### Jonas - Implementation Sektion (1 opgave)
-- [ ] **Skriv Implementation sektion** - API server design valg og klient
-  - Forklar CIFAR-10 model valg og implementation
-  - Forklar FastAPI routes (`/image_classify`, `/health` eller `/model/info`)
-  - Forklar klientprogram implementation
+- [x] **Skriv Implementation sektion** - API server design valg og klient ✅
+  - Forklar CIFAR-10 model valg og implementation ✅
+  - Forklar FastAPI routes (`/image_classify`, `/health` eller `/model/info`) ✅
+  - Forklar klientprogram implementation ✅
 
 **Jonas' område:**
 - Implementation sektion i rapporten
@@ -338,7 +338,7 @@
 - Forklarer sin egen deployment process
 
 #### Begge - Fælles Sektioner (3 opgaver)
-- [ ] **Skriv Introduction** - Problem analyse (sammen eller hver sin del)
+- [x] **Skriv Introduction** - Problem analyse (sammen eller hver sin del) ✅
 - [ ] **Skriv Results sektion** - Evaluering og reflektioner (sammen)
   - Test CIFAR-10 classification accuracy
   - API response times
