@@ -12,6 +12,8 @@
 - ✅ `.dockerignore` oprettet (combined med Jonas' version)
 - ✅ `Dockerfile` oprettet med proper layering (Modul 5)
 - ✅ Pushed til GitHub
+- ✅ Testet Docker build lokalt (v1.0)
+- ✅ Verificeret container virker lokalt (health check OK)
 
 **Dockerfile struktur:**
 ```dockerfile
@@ -23,6 +25,12 @@ COPY . .
 EXPOSE 8000
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
 ```
+
+**Test Resultater (Lokal):**
+- Build tid: ~45 sekunder
+- Image size: ~300MB (python:3.11-slim base)
+- Health check: `{"status":"healthy","model_status":"loaded"}`
+- Model info: `{"name":"ResNet-18 (CIFAR-10)","status":"loaded","num_labels":10}`
 
 ---
 
