@@ -1,13 +1,13 @@
 # TODO Liste - Mini Projekt AI Systems & Infrastructure
 
 **Deadline:** 4. december 2025 kl. 23:59 (Copenhagen time)  
-**Status:** 10/26 opgaver færdige (38%) - KUN PÅKRÆVET  
+**Status:** 11/26 opgaver færdige (42%) - KUN PÅKRÆVET  
 **Model:** CIFAR-10 (10 klasser image classification)  
 **Server:** EC2 (51.21.200.191)
 
 ---
 
-## ✅ Færdige Opgaver (10)
+## ✅ Færdige Opgaver (11)
 
 ### Setup & Infrastructure
 - [x] **EC2 Server opsætning** - SSH nøgler, SSH config, SSHFS scripts
@@ -23,6 +23,9 @@
 ### Klientprogram (Jonas)
 - [x] **Opret klientprogram** - Python script (`client.py`) med requests library
 - [x] **Implementer API kald** - GET `/health` og POST `/image_classify`
+
+### Docker Setup (Peter/Jonas)
+- [x] **Opret Dockerfile** - Containerization er PÅKRÆVET ✅
 
 ---
 
@@ -255,14 +258,14 @@
 ### FASE 3: Docker & Deployment (Opdelt arbejde) 🐳
 
 #### Peter - Docker Setup (3 opgaver)
-- [ ] **Opret Dockerfile** - Containerization er PÅKRÆVET
-  - FROM python:3.11-slim
-  - WORKDIR /app
-  - COPY requirements.txt .
-  - RUN pip install --no-cache-dir -r requirements.txt
-  - COPY . .
-  - EXPOSE 8000
-  - CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+- [x] **Opret Dockerfile** - Containerization er PÅKRÆVET ✅
+  - FROM python:3.11-slim ✅
+  - WORKDIR /app ✅
+  - COPY requirements.txt . ✅
+  - RUN pip install --no-cache-dir -r requirements.txt ✅
+  - COPY . . ✅
+  - EXPOSE 8000 ✅
+  - CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"] ✅
 - [ ] **Test Docker build lokalt** - `docker build -t cifar10-api:v1.0 .` og test med `docker run -p 8000:8000`
 - [ ] **Verificer CIFAR-10 model virker i container** - Test image classification lokalt i container
 

@@ -1,0 +1,27 @@
+# Ignorer filer der ikke skal med i Docker image
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info
+dist
+build
+.env
+.venv
+venv/
+*.db
+*.sqlite
+.git
+.gitignore
+README.md
+README_API.md
+TODO.md
+VERIFIKATION.md
+PROJEKT_OVERBLIK.md
+docs/
+scripts/
+ec2_mount/
+
