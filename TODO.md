@@ -104,18 +104,23 @@
 
 ## 📊 Status Oversigt - KUN PÅKRÆVET
 
-| Kategori | Færdige | Mangler | Total |
-|----------|---------|---------|-------|
-| Setup & Infrastructure | 3 ✅ | 0 | 3 |
-| API Server Implementation | 0 | 5 | 5 |
-| Docker Setup | 0 | 3 | 3 |
-| Deployment på EC2 | 0 | 5 | 5 |
-| Klientprogram | 0 | 3 | 3 |
-| Rapport | 0 | 5 | 5 |
-| Submission | 0 | 2 | 2 |
-| **TOTAL** | **3** | **23** | **26** |
+| Kategori | Færdige | Mangler | Total | Ansvar |
+|----------|---------|---------|-------|--------|
+| Setup & Infrastructure | 3 ✅ | 0 | 3 | Begge |
+| API Server Implementation | 0 | 5 | 5 | Jonas |
+| Docker Setup | 0 | 3 | 3 | Peter |
+| Deployment på EC2 | 0 | 4 | 4 | Peter |
+| Klientprogram | 0 | 3 | 3 | Jonas |
+| Rapport | 0 | 5 | 5 | Begge |
+| Submission | 0 | 2 | 2 | Begge |
+| **TOTAL** | **3** | **22** | **25** | |
 
-**Procent færdig:** 12% (3/26)
+**Procent færdig:** 12% (3/25)
+
+**Fordeling:**
+- **Jonas:** 8 opgaver (API + Klient)
+- **Peter:** 7 opgaver (Docker + Deployment)
+- **Begge:** 4 opgaver (Planlægning + Rapport + Submission)
 
 **Note:** Kun påkrævede opgaver er inkluderet. Tips og optional achievements er fjernet.
 
@@ -203,15 +208,15 @@
 
 ---
 
-## 👥 Opdeling mellem Peter og Jonas - KUN PÅKRÆVET
+## 👥 Opdeling mellem Peter og Jonas - Ligelig Fordeling
 
 ### FASE 1: Planlægning (Sammen - Fælles beslutninger) 🔄
 
-**Begge skal være med:**
-- [ ] **Planlæg API server routes** - Diskuter routes (sammen)
+**Begge skal være med (1 opgave):**
+- [ ] **Planlæg API server routes og CIFAR-10 model** - Diskuter sammen:
   - Route 1: `/image_classify` (POST) - CIFAR-10 classification (AI funktionalitet) ✅
   - Route 2: `/health` (GET) eller `/model/info` (GET) - Utility route ✅
-- [ ] **Forbered CIFAR-10 model** - Beslut implementation (PyTorch torchvision eller HuggingFace)
+  - CIFAR-10 implementation: PyTorch torchvision eller HuggingFace
 
 **Hvorfor sammen:** Disse er fundamentale design beslutninger der påvirker hele projektet.
 
@@ -219,7 +224,7 @@
 
 ### FASE 2: API Server Implementation (Opdelt arbejde) 🔀
 
-#### Jonas - FastAPI & CIFAR-10 Implementation (5 opgaver)
+#### Jonas - FastAPI & CIFAR-10 Backend (5 opgaver)
 - [ ] **Opret FastAPI projekt struktur** - `main.py` med FastAPI app, uvicorn server
 - [ ] **Implementer CIFAR-10 image classification endpoint** - POST `/image_classify`
   - Load CIFAR-10 model (fx `torchvision.models` eller pretrained)
@@ -229,24 +234,35 @@
   - Return top predictions med confidence scores
 - [ ] **Implementer mindst én ekstra route** - GET `/health` eller GET `/model/info`
   - `/health`: Return server status
-  - `/model/info`: Return CIFAR-10 model information (10 classes: airplane, car, bird, cat, deer, dog, frog, horse, ship, truck)
-- [ ] **Opret requirements.txt** - Dependencies for CIFAR-10:
-  - fastapi
-  - uvicorn[standard]
-  - torch
-  - torchvision (CIFAR-10 models)
-  - pillow (image processing)
-  - python-multipart (file uploads)
+  - `/model/info`: Return CIFAR-10 model information (10 classes)
+- [ ] **Opret requirements.txt** - Dependencies for CIFAR-10
 - [ ] **Forståelse af koden** - Skal kunne forklare CIFAR-10 model og API implementation
 
-**Jonas' filer:**
+**Jonas' filer (arbejder uafhængigt):**
 - `main.py` (hovedfil med FastAPI app og routes)
 - `requirements.txt`
 - Eventuelt `cifar10_model.py` (CIFAR-10 model loading og inference)
 
+#### Peter - Docker & Containerization (3 opgaver)
+- [ ] **Opret Dockerfile** - Containerization er PÅKRÆVET
+  - FROM python:3.11-slim
+  - WORKDIR /app
+  - COPY requirements.txt .
+  - RUN pip install --no-cache-dir -r requirements.txt
+  - COPY . .
+  - EXPOSE 8000
+  - CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+- [ ] **Test Docker build lokalt** - `docker build -t cifar10-api:v1.0 .` og test med `docker run -p 8000:8000`
+- [ ] **Verificer CIFAR-10 model virker i container** - Test image classification lokalt i container
+
+**Peter's filer (arbejder uafhængigt):**
+- `Dockerfile`
+- Eventuelt `.dockerignore` (optional)
+
 **Git workflow:**
-- Jonas arbejder på `main` branch eller `jonas/cifar10-api` branch
-- Commit ofte, push til GitHub regelmæssigt
+- Jonas arbejder på `jonas/cifar10-api` branch
+- Peter arbejder på `peter/docker` branch (efter Jonas har committet `requirements.txt`)
+- Ingen overlap - hver sin filer
 
 ---
 
@@ -286,7 +302,7 @@
 
 ---
 
-### FASE 4: Klientprogram (Opdelt arbejde) 🧪
+### FASE 4: Klientprogram & Verifikation (Opdelt arbejde) 🧪
 
 #### Jonas - Klientprogram (3 opgaver)
 - [ ] **Opret klientprogram** - Python script (`client.py`) med requests library
@@ -295,13 +311,17 @@
   - POST `/image_classify` - Send billede og få CIFAR-10 predictions
 - [ ] **Test klient fra lokal maskine** - Mod serveren på EC2 (51.21.200.191:8000) - PÅKRÆVET
 
-**Jonas' filer:**
+**Jonas' filer (arbejder uafhængigt):**
 - `client.py`
+
+**Jonas' område:**
+- Klientprogram implementation
+- Test fra lokal PC mod EC2 server
+- Demonstrerer forskellige host environments (lokal PC → EC2 server)
 
 **Hvorfor Jonas:**
 - Jonas har implementeret API'en, så han kender endpoints bedst
 - Kan teste sin egen implementation
-- Demonstrerer forskellige host environments (lokal PC → EC2 server)
 
 ---
 
@@ -313,11 +333,19 @@
   - Forklar FastAPI routes (`/image_classify`, `/health` eller `/model/info`)
   - Forklar klientprogram implementation
 
+**Jonas' område:**
+- Implementation sektion i rapporten
+- Forklarer sin egen kode
+
 #### Peter - Deployment Sektion (1 opgave)
 - [ ] **Skriv Deployment sektion** - Vigtige steps i deployment
   - Docker containerization
   - EC2 deployment process
   - Verificering af forskellige host environments
+
+**Peter's område:**
+- Deployment sektion i rapporten
+- Forklarer sin egen deployment process
 
 #### Begge - Fælles Sektioner (3 opgaver)
 - [ ] **Skriv Introduction** - Problem analyse (sammen eller hver sin del)
@@ -329,7 +357,7 @@
 
 **Rapport struktur (3-4 sider):**
 - Title og forfattere (Peter og Jonas)
-- Introduction: Begge bidrager
+- Introduction: Begge bidrager (kan dele op)
 - Implementation: Jonas (API server + klient + CIFAR-10)
 - Deployment: Peter (Docker + EC2)
 - Results: Begge (sammen evaluering)
@@ -348,25 +376,37 @@
 
 ### Branch Strategi:
 1. **`main`** - Production ready kode
-2. **`jonas/cifar10-api`** - Jonas' API implementation (optional, kan også arbejde direkte på main)
+2. **`jonas/cifar10-api`** - Jonas' API implementation
+3. **`peter/docker`** - Peter's Docker setup
 
-### Arbejdsflow:
+### Arbejdsflow (Ingen Overlap):
 1. **FASE 1:** Begge på `main` (planlægning) - commit sammen
 2. **FASE 2:** 
-   - Jonas: Arbejder på `main` eller `jonas/cifar10-api` branch
-   - Implementerer hele API serveren (CIFAR-10 + FastAPI)
-   - Commit ofte: `git add . && git commit -m "Add CIFAR-10 API endpoint"`
-3. **FASE 3:**
-   - Jonas: Docker setup på `main` eller egen branch
-   - Peter: Deployment på `main` eller egen branch (efter Docker er klar)
-4. **Merge:**
-   - Hvis branches: `git checkout main && git merge jonas/cifar10-api`
-   - Push til GitHub: `git push origin main`
+   - **Jonas:** `git checkout -b jonas/cifar10-api`
+     - Arbejder på: `main.py`, `requirements.txt`, eventuelt `cifar10_model.py`
+     - Commit ofte: `git add main.py requirements.txt && git commit -m "Add CIFAR-10 API"`
+     - Push: `git push origin jonas/cifar10-api`
+   - **Peter:** Vent til Jonas har committet `requirements.txt`, derefter:
+     - `git checkout -b peter/docker`
+     - Arbejder på: `Dockerfile`, eventuelt `.dockerignore`
+     - Commit: `git add Dockerfile && git commit -m "Add Dockerfile"`
+     - Push: `git push origin peter/docker`
+3. **Merge (ingen conflicts fordi forskellige filer):**
+   - Jonas merges først: `git checkout main && git merge jonas/cifar10-api`
+   - Peter merges derefter: `git checkout main && git merge peter/docker`
+   - Push: `git push origin main`
+4. **FASE 3:**
+   - **Peter:** Arbejder på `main` eller egen branch for deployment
+   - Upload til EC2, build, kør container
+5. **FASE 4:**
+   - **Jonas:** Arbejder på `main` eller egen branch for klient
+   - Opretter `client.py` (ingen overlap med Peter's filer)
 
 ### Kommunikation:
 - **Daily sync:** Diskuter hvilke filer I arbejder på
 - **Before merge:** Tjek `git status` og `git diff` før merge
-- **Koordiner deployment:** Peter venter til Jonas har Docker klar
+- **Koordiner:** Peter venter til Jonas har `requirements.txt` før Docker
+- **Ingen overlap:** Hver sin filer - ingen merge conflicts!
 
 ---
 
@@ -390,13 +430,22 @@
    - Kan bruge `torchvision.models` eller pretrained CIFAR-10 model
    - CPU-friendly (perfekt til EC2 serveren uden GPU)
 
-2. **Fælles filer:** `main.py` - Jonas implementerer hele API serveren
-3. **Communication:** Diskuter API interface før implementation
-4. **Testing:** Test lokalt før deployment
-5. **Backup:** Commit ofte, push til GitHub regelmæssigt
-6. **AWS adgang:** Begge har adgang - kan hjælpe hinanden med deployment
-7. **EC2 server:** Koordiner deployment - ikke deploy samtidigt!
-8. **EC2 IP:** 51.21.200.191 - Klient skal connecte til denne adresse
+2. **Ingen Overlap - Hver sin filer:**
+   - **Jonas' filer:** `main.py`, `requirements.txt`, `client.py`, eventuelt `cifar10_model.py`
+   - **Peter's filer:** `Dockerfile`, eventuelt `.dockerignore`
+   - **Fælles:** Planlægning, Rapport sektioner, Submission
+
+3. **Arbejdsflow:**
+   - Jonas starter med FastAPI + CIFAR-10 (committer `requirements.txt` først)
+   - Peter laver Dockerfile (efter `requirements.txt` er klar)
+   - Ingen overlap = ingen merge conflicts!
+
+4. **Communication:** Diskuter API interface før implementation
+5. **Testing:** Test lokalt før deployment
+6. **Backup:** Commit ofte, push til GitHub regelmæssigt
+7. **AWS adgang:** Begge har adgang - kan hjælpe hinanden hvis nødvendigt
+8. **EC2 server:** Koordiner deployment - ikke deploy samtidigt!
+9. **EC2 IP:** 51.21.200.191 - Klient skal connecte til denne adresse
 
 ---
 
