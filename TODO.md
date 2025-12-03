@@ -275,6 +275,7 @@
 
 #### Peter - EC2 Deployment (4 opgaver)
 - [ ] **Upload kode til EC2 serveren** - Via SSHFS (`./mount_ec2.sh`) eller SCP til `/home/ubuntu/`
+  - **Note:** Kun Jonas' filer skal uploades: `main.py` og `requirements.txt` (se JONAS_DEPLOYMENT.md)
 - [ ] **Build container på EC2** - `docker build -t cifar10-api:v1.0 .` på serveren
 - [ ] **Kør container på EC2** - Med port mapping:
   - `docker run -d -p 8000:8000 --restart unless-stopped --name cifar10-api cifar10-api:v1.0`
