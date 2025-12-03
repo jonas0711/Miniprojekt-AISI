@@ -1,7 +1,7 @@
 # Projekt Overblik - CIFAR-10 Image Classification API
 
 **Dato:** 3. december 2025  
-**Status:** 11/26 opgaver færdige (42%)  
+**Status:** 13/26 opgaver færdige (50%)  
 **Deadline:** 4. december 2025 kl. 23:59
 
 ---
@@ -18,6 +18,8 @@
 
 #### Docker Setup (Peter)
 - ✅ Dockerfile (oprettet)
+- ✅ Test Docker build lokalt
+- ✅ Verificer container virker
 
 
 #### Klientprogram (Jonas)
@@ -27,8 +29,8 @@
 ### ⏳ Manglende Opgaver (16)
 
 #### Docker Setup (Peter)
-- ⏳ Test Docker build lokalt
-- ⏳ Verificer container virker
+- ✅ Test Docker build lokalt
+- ✅ Verificer container virker
 
 #### EC2 Deployment (Peter)
 - ⏳ Upload kode til EC2
@@ -146,8 +148,8 @@ Image classification - klassificerer billede i 10 kategorier
 ### Prioriteret Rækkefølge:
 
 1. **Peter: Docker Setup**
-   - Test lokalt
-   - Verificer container
+   - ✅ Test lokalt
+   - ✅ Verificer container
 
 2. **Peter: EC2 Deployment**
    - Upload kode til EC2
@@ -180,7 +182,7 @@ Image classification - klassificerer billede i 10 kategorier
 - ✅ Forskellige host environments (EC2 + lokal PC)
 
 ### ⏳ Manglende Krav
-- ⏳ Containerization (Dockerfile oprettet, mangler test)
+- ✅ Containerization (Dockerfile oprettet og testet)
 - ⏳ Server deployet på EC2
 - ⏳ Rapport (3-4 sider)
 - ⏳ Submission

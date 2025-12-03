@@ -66,8 +66,8 @@
   - COPY . .
   - EXPOSE 8000
   - CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
-- [ ] **Test Docker build lokalt** - `docker build -t cifar10-api:v1.0 .` og test med `docker run -p 8000:8000`
-- [ ] **Verificer container virker** - Test at API serveren kører korrekt i container
+- [x] **Test Docker build lokalt** - `docker build -t cifar10-api:v1.0 .` og test med `docker run -p 8000:8000`
+- [x] **Verificer container virker** - Test at API serveren kører korrekt i container
 
 ---
 
@@ -117,14 +117,14 @@
 |----------|---------|---------|-------|--------|
 | Setup & Infrastructure | 3 ✅ | 0 | 3 | Begge |
 | API Server Implementation | 0 | 5 | 5 | Jonas |
-| Docker Setup | 0 | 3 | 3 | Peter |
+| Docker Setup | 2 ✅ | 1 | 3 | Peter |
 | Deployment på EC2 | 0 | 4 | 4 | Peter |
 | Klientprogram | 0 | 3 | 3 | Jonas |
 | Rapport | 0 | 5 | 5 | Begge |
 | Submission | 0 | 2 | 2 | Begge |
-| **TOTAL** | **3** | **22** | **25** | |
+| **TOTAL** | **5** | **20** | **25** | |
 
-**Procent færdig:** 12% (3/25)
+**Procent færdig:** 20% (5/25)
 
 **Fordeling:**
 - **Jonas:** 8 opgaver (API + Klient)
@@ -266,8 +266,8 @@
   - COPY . . ✅
   - EXPOSE 8000 ✅
   - CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"] ✅
-- [ ] **Test Docker build lokalt** - `docker build -t cifar10-api:v1.0 .` og test med `docker run -p 8000:8000`
-- [ ] **Verificer CIFAR-10 model virker i container** - Test image classification lokalt i container
+- [x] **Test Docker build lokalt** - `docker build -t cifar10-api:v1.0 .` og test med `docker run -p 8000:8000`
+- [x] **Verificer CIFAR-10 model virker i container** - Test image classification lokalt i container
 
 **Peter's filer (arbejder uafhængigt):**
 - `Dockerfile`
