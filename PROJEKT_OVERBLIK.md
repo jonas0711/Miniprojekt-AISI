@@ -1,7 +1,7 @@
 # Projekt Overblik - CIFAR-10 Image Classification API
 
 **Dato:** 3. december 2025  
-**Status:** 10/26 opgaver færdige (38%)  
+**Status:** 11/26 opgaver færdige (42%)  
 **Deadline:** 4. december 2025 kl. 23:59
 
 ---
@@ -10,15 +10,15 @@
 
 ### ✅ Færdige Opgaver (10)
 
-#### Setup & Infrastructure
-- ✅ EC2 Server opsætning (SSH, Docker, Python)
-- ✅ Dokumentation (guides, kravspecifikation)
-
 #### API Server Implementation (Jonas)
 - ✅ FastAPI projekt struktur (`main.py`)
 - ✅ CIFAR-10 image classification endpoint (`POST /image_classify`)
 - ✅ Utility routes (`GET /health`, `GET /model/info`)
 - ✅ Requirements.txt med dependencies
+
+#### Docker Setup (Peter)
+- ✅ Dockerfile (oprettet)
+
 
 #### Klientprogram (Jonas)
 - ✅ Klientprogram (`client.py`) med requests library
@@ -27,7 +27,6 @@
 ### ⏳ Manglende Opgaver (16)
 
 #### Docker Setup (Peter)
-- ⏳ Dockerfile
 - ⏳ Test Docker build lokalt
 - ⏳ Verificer container virker
 
@@ -60,7 +59,7 @@ miniproject-aisa/
 ├── main.py                 # FastAPI server (Jonas)
 ├── client.py               # Klientprogram (Jonas)
 ├── requirements.txt        # Dependencies (Jonas)
-├── Dockerfile              # Docker setup (Peter - mangler)
+├── Dockerfile              # Docker setup (Peter)
 ├── README_API.md          # API dokumentation
 ├── TODO.md                 # Opgaveliste
 ├── docs/                   # Dokumentation
@@ -131,7 +130,7 @@ Image classification - klassificerer billede i 10 kategorier
 ### Lokal Udvikling
 - ✅ API server implementeret
 - ✅ Klientprogram implementeret
-- ⏳ Dockerfile (mangler - Peter's opgave)
+- ✅ Dockerfile (oprettet)
 
 ### EC2 Deployment
 - ✅ Server klar (Docker, Python installeret)
@@ -147,7 +146,6 @@ Image classification - klassificerer billede i 10 kategorier
 ### Prioriteret Rækkefølge:
 
 1. **Peter: Docker Setup**
-   - Opret Dockerfile
    - Test lokalt
    - Verificer container
 
@@ -182,7 +180,7 @@ Image classification - klassificerer billede i 10 kategorier
 - ✅ Forskellige host environments (EC2 + lokal PC)
 
 ### ⏳ Manglende Krav
-- ⏳ Containerization (Dockerfile mangler)
+- ⏳ Containerization (Dockerfile oprettet, mangler test)
 - ⏳ Server deployet på EC2
 - ⏳ Rapport (3-4 sider)
 - ⏳ Submission

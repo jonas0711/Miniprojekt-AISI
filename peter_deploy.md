@@ -28,18 +28,20 @@ CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
 
 ## 🚀 EC2 Deployment (I Gang)
 
-###  Problem: SSH Connection Timeout
+###  Problem: SSH Connection Timeout (LØST)
 
 **Fejl:** `Connection timed out during banner exchange`
 **Server:** 51.21.200.191:22
 **SSH Key:** `~/Downloads/login.pem`
 
-**Mulige årsager:**
+**Løsning:** EC2 instance genstartet i AWS Console
+
+**Mulige årsager var:**
 1. AWS Security Group blokerer port 22 fra din IP
-2. EC2 instance er stoppet/termineret
+2. EC2 instance var stoppet/termineret ✅ (dette var problemet)
 3. Firewall (UFW) på serveren blokerer SSH
 
-**Løsninger:**
+**Løsninger (gennemført):**
 
 #### 1. Tjek EC2 Instance Status i AWS Console:
 - Log ind på AWS Console
