@@ -14,7 +14,7 @@ from PIL import Image
 import base64
 import io
 
-# CIFAR-10 klasser (10 kategorier)
+# CIFAR-10 klasser
 CIFAR10_CLASSES = [
     "airplane", "car", "bird", "cat", "deer",
     "dog", "frog", "horse", "ship", "truck"
@@ -22,8 +22,6 @@ CIFAR10_CLASSES = [
 
 
 class ImageClassifier:
-    """Klasse til at håndtere CIFAR-10 image classification"""
-    
     def __init__(self):
         self.model = None
         self.model_name = "ResNet-18 (CIFAR-10)"
@@ -32,7 +30,6 @@ class ImageClassifier:
         """Loader CIFAR-10 modellen"""
         if self.model is None:
             print(f"Loading model: {self.model_name}")
-            # ResNet-18 modificeret til 10 klasser
             self.model = resnet18(pretrained=False)
             self.model.fc = torch.nn.Linear(self.model.fc.in_features, 10)
             self.model.eval()
@@ -43,7 +40,7 @@ class ImageClassifier:
         if self.model is None:
             await self.load_model()
         
-        # Preprocess image til 32x32
+        # Preprocess image
         transform = transforms.Compose([
             transforms.Resize((32, 32)),
             transforms.ToTensor(),
