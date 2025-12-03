@@ -1,13 +1,13 @@
 # TODO Liste - Mini Projekt AI Systems & Infrastructure
 
 **Deadline:** 4. december 2025 kl. 23:59 (Copenhagen time)  
-**Status:** 13/26 opgaver færdige (50%) - KUN PÅKRÆVET  
+**Status:** 18/26 opgaver færdige (69%) - KUN PÅKRÆVET  
 **Model:** CIFAR-10 (10 klasser image classification)  
 **Server:** EC2 (51.21.200.191)
 
 ---
 
-## ✅ Færdige Opgaver (13)
+## ✅ Færdige Opgaver (18)
 
 ### Setup & Infrastructure
 - [x] **EC2 Server opsætning** - SSH nøgler, SSH config, SSHFS scripts
@@ -26,6 +26,8 @@
 
 ### Docker Setup (Peter/Jonas)
 - [x] **Opret Dockerfile** - Containerization er PÅKRÆVET ✅
+- [x] **Test Docker build lokalt** - Build og test container lokalt ✅
+- [x] **Verificer container virker** - Test at API serveren kører korrekt i container ✅
 
 ---
 
@@ -54,26 +56,27 @@
 
 ---
 
-### 2. Docker Setup (PÅKRÆVET)
+### 2. Docker Setup (PÅKRÆVET) ✅ FÆRDIG
 
 **Note:** `requirements.txt` er en del af API Server Implementation (Jonas), men Dockerfile bruger den.
 
-- [ ] **Opret Dockerfile** - Containerization er PÅKRÆVET (modul 5)
-  - FROM python:3.11-slim
-  - WORKDIR /app
-  - COPY requirements.txt .
-  - RUN pip install --no-cache-dir -r requirements.txt
-  - COPY . .
-  - EXPOSE 8000
-  - CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
-- [x] **Test Docker build lokalt** - `docker build -t cifar10-api:v1.0 .` og test med `docker run -p 8000:8000`
-- [x] **Verificer container virker** - Test at API serveren kører korrekt i container
+- [x] **Opret Dockerfile** - Containerization er PÅKRÆVET (modul 5) ✅
+  - FROM python:3.11-slim ✅
+  - WORKDIR /app ✅
+  - COPY requirements.txt . ✅
+  - RUN pip install --no-cache-dir -r requirements.txt ✅
+  - COPY . . ✅
+  - EXPOSE 8000 ✅
+  - CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"] ✅
+- [x] **Test Docker build lokalt** - `docker build -t cifar10-api:v1.0 .` og test med `docker run -p 8000:8000` ✅
+- [x] **Verificer container virker** - Test at API serveren kører korrekt i container ✅
 
 ---
 
 ### 3. Deployment på EC2 (PÅKRÆVET)
 
-- [ ] **Upload kode til EC2 serveren** - Via SSHFS (`./mount_ec2.sh`) eller SCP til `/home/ubuntu/`
+- [x] **Upload kode til EC2 serveren** - Via SSHFS (`./mount_ec2.sh`) eller SCP til `/home/ubuntu/` ✅
+  - **Note:** `main.py` og `requirements.txt` er uploadet til `~/cifar10-api/` ✅
 - [ ] **Build container på EC2** - `docker build -t cifar10-api:v1.0 .` på serveren
 - [ ] **Kør container på EC2** - Med port mapping:
   - `docker run -d -p 8000:8000 --restart unless-stopped --name cifar10-api cifar10-api:v1.0`
@@ -94,11 +97,11 @@
 
 ### 5. Rapport (5 opgaver)
 
-- [x] **Skriv Introduction** - Med problem analyse ✅
-- [x] **Skriv Implementation sektion** - API server + klient design valg ✅
-- [ ] **Skriv Deployment sektion** - Vigtige steps i deployment
-- [ ] **Skriv Results sektion** - Evaluering og reflektioner
-- [ ] **Skriv Conclusion** - Afsluttende konklusion
+- [x] **Skriv Introduction** - Med problem analyse ✅ (`RAPPORT_INTRODUCTION.md`)
+- [x] **Skriv Implementation sektion** - API server + klient design valg ✅ (`RAPPORT_IMPLEMENTATION.md`)
+- [ ] **Skriv Deployment sektion** - Vigtige steps i deployment (Peter)
+- [ ] **Skriv Results sektion** - Evaluering og reflektioner (Begge)
+- [ ] **Skriv Conclusion** - Afsluttende konklusion (Begge)
 
 **Rapport krav:** 3-4 sider (ekskl. referencer)
 
@@ -116,15 +119,15 @@
 | Kategori | Færdige | Mangler | Total | Ansvar |
 |----------|---------|---------|-------|--------|
 | Setup & Infrastructure | 3 ✅ | 0 | 3 | Begge |
-| API Server Implementation | 0 | 5 | 5 | Jonas |
-| Docker Setup | 2 ✅ | 1 | 3 | Peter |
-| Deployment på EC2 | 0 | 4 | 4 | Peter |
-| Klientprogram | 0 | 3 | 3 | Jonas |
-| Rapport | 0 | 5 | 5 | Begge |
+| API Server Implementation | 5 ✅ | 0 | 5 | Jonas |
+| Docker Setup | 3 ✅ | 0 | 3 | Peter |
+| Deployment på EC2 | 1 ✅ | 4 | 5 | Peter |
+| Klientprogram | 2 ✅ | 1 | 3 | Jonas |
+| Rapport | 2 ✅ | 3 | 5 | Begge |
 | Submission | 0 | 2 | 2 | Begge |
-| **TOTAL** | **5** | **20** | **25** | |
+| **TOTAL** | **16** | **11** | **27** | |
 
-**Procent færdig:** 20% (5/25)
+**Procent færdig:** 59% (16/27)
 
 **Fordeling:**
 - **Jonas:** 8 opgaver (API + Klient)
@@ -273,13 +276,14 @@
 - `Dockerfile`
 - Eventuelt `.dockerignore` (optional)
 
-#### Peter - EC2 Deployment (4 opgaver)
+#### Peter - EC2 Deployment (5 opgaver)
 - [x] **Upload kode til EC2 serveren** - Via SSHFS (`./mount_ec2.sh`) eller SCP til `/home/ubuntu/` ✅
-  - **Note:** Kun Jonas' filer er uploadet: `main.py` og `requirements.txt` ✅
+  - **Note:** `main.py` og `requirements.txt` er uploadet til `~/cifar10-api/` ✅
 - [ ] **Build container på EC2** - `docker build -t cifar10-api:v1.0 .` på serveren
 - [ ] **Kør container på EC2** - Med port mapping:
   - `docker run -d -p 8000:8000 --restart unless-stopped --name cifar10-api cifar10-api:v1.0`
 - [ ] **Test API fra serveren** - Lokalt på EC2 med `curl http://localhost:8000/health` og `curl http://localhost:8000/model/info`
+- [ ] **Åbn port 8000 i Security Group** - Tillad ekstern adgang til API'en
 
 **Peter's område (arbejder uafhængigt):**
 - EC2 server deployment
@@ -318,7 +322,7 @@
 ### FASE 5: Rapport (Opdelt arbejde) 📝
 
 #### Jonas - Implementation Sektion (1 opgave)
-- [x] **Skriv Implementation sektion** - API server design valg og klient ✅
+- [x] **Skriv Implementation sektion** - API server design valg og klient ✅ (`RAPPORT_IMPLEMENTATION.md`)
   - Forklar CIFAR-10 model valg og implementation ✅
   - Forklar FastAPI routes (`/image_classify`, `/health` eller `/model/info`) ✅
   - Forklar klientprogram implementation ✅
@@ -338,7 +342,7 @@
 - Forklarer sin egen deployment process
 
 #### Begge - Fælles Sektioner (3 opgaver)
-- [x] **Skriv Introduction** - Problem analyse (sammen eller hver sin del) ✅
+- [x] **Skriv Introduction** - Problem analyse (sammen eller hver sin del) ✅ (`RAPPORT_INTRODUCTION.md`)
 - [ ] **Skriv Results sektion** - Evaluering og reflektioner (sammen)
   - Test CIFAR-10 classification accuracy
   - API response times
@@ -402,15 +406,15 @@
 
 ## 📊 Opgave Oversigt per Person - Ligelig Fordeling
 
-| Person | Opgaver | Fokusområde |
-|--------|---------|-------------|
-| **Jonas** | 9 opgaver | FastAPI + CIFAR-10 Backend (5), Klientprogram (3), Implementation rapport (1) |
-| **Peter** | 7 opgaver | Docker Setup (3), EC2 Deployment (4), Deployment rapport (1) |
-| **Begge** | 4 opgaver | Planlægning (1), Rapport (Introduction/Results/Conclusion) (3), Submission (2) |
+| Person | Opgaver | Fokusområde | Færdige |
+|--------|---------|------------|---------|
+| **Jonas** | 9 opgaver | FastAPI + CIFAR-10 Backend (5), Klientprogram (3), Implementation rapport (1) | 8 ✅ |
+| **Peter** | 8 opgaver | Docker Setup (3), EC2 Deployment (5), Deployment rapport (1) | 4 ✅ |
+| **Begge** | 4 opgaver | Planlægning (1), Rapport (Introduction/Results/Conclusion) (3), Submission (2) | 2 ✅ |
 
-**Total påkrævede opgaver:** 20 (3 allerede færdige = 23 total)
+**Total påkrævede opgaver:** 21 (16 allerede færdige = 37 total inkl. setup)
 
-**Fordeling:** 9 + 7 + 4 = 20 opgaver (mere ligeligt fordelt)
+**Fordeling:** 9 + 8 + 4 = 21 opgaver (mere ligeligt fordelt)
 
 ---
 
@@ -441,6 +445,15 @@
 
 ---
 
-**Sidst opdateret:** 3. december 2025  
+**Sidst opdateret:** 3. december 2025 (16:15)  
 **Baseret på:** Modul 1, 2, 3, 5, 6 fra AI Systems & Infrastructure kursus
+
+## 📝 Opdateringsnoter
+
+**3. december 2025 (16:15):**
+- ✅ Opdateret status: 18/27 opgaver færdige (59%)
+- ✅ Docker Setup: Alle 3 opgaver færdige (lokalt testet)
+- ✅ EC2 Deployment: 1/5 opgaver færdige (kode uploadet)
+- ✅ Rapport: 2/5 sektioner færdige (Introduction + Implementation)
+- ⏳ Mangler: EC2 container deployment, klient test mod EC2, rapport sektioner (Deployment, Results, Conclusion), submission
 
