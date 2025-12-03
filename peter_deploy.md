@@ -36,7 +36,11 @@ CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
 
 ## 🚀 EC2 Deployment (I Gang)
 
-###  Problem: SSH Connection Timeout (LØST)
+### ✅ Step 1: Upload kode til EC2
+- Uploadet `main.py` og `requirements.txt` til `/home/ubuntu/Miniprojekt-AISI`
+- Brugte SSHFS/SCP
+
+### ⏳ Step 2: Build & Run (Næste)
 
 **Fejl:** `Connection timed out during banner exchange`
 **Server:** 51.21.200.191:22
