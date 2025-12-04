@@ -1,4 +1,3 @@
-
 from fastapi import FastAPI, HTTPException
 from contextlib import asynccontextmanager
 from pydantic import BaseModel
@@ -10,7 +9,6 @@ from PIL import Image
 import base64
 import io
 
-# CIFAR-10 klasser
 CIFAR10_CLASSES = [
     "airplane", "car", "bird", "cat", "deer",
     "dog", "frog", "horse", "ship", "truck"
@@ -23,7 +21,6 @@ class ImageClassifier:
         self.model_name = "ResNet-18 (CIFAR-10)"
     
     async def load_model(self):
-        """Loader CIFAR-10 modellen"""
         if self.model is None:
             print(f"Loading model: {self.model_name}")
             self.model = resnet18(pretrained=False)
@@ -32,7 +29,7 @@ class ImageClassifier:
             print("Model loaded successfully")
     
     async def classify_image(self, image: Image.Image) -> dict:
-        """Klassificerer et billede"""
+        #Klassifisere
         if self.model is None:
             await self.load_model()
         
@@ -69,7 +66,6 @@ class ImageClassifier:
         }
 
 
-# Initialize classifier
 classifier = ImageClassifier()
 
 
@@ -86,8 +82,6 @@ app = FastAPI(
     lifespan=lifespan
 )
 
-
-# Data Models
 class ImageRequest(BaseModel):
     image: str  # base64 encoded image
     filename: Optional[str] = None
@@ -105,7 +99,6 @@ class ModelInfo(BaseModel):
 
 
 def decode_base64_image(base64_string: str) -> Image.Image:
-    """Dekoder base64 string til PIL Image"""
     try:
         if base64_string.startswith('data:image'):
             base64_string = base64_string.split(',')[1]
@@ -116,16 +109,14 @@ def decode_base64_image(base64_string: str) -> Image.Image:
         raise HTTPException(status_code=400, detail=f"Invalid base64 image: {str(e)}")
 
 
-# Routes
+
 @app.get("/")
 def read_root():
-    """Root endpoint"""
     return {"message": "Welcome to CIFAR-10 Image Classification API"}
 
 
 @app.get("/health")
 def health_check():
-    """Health check endpoint"""
     return {
         "status": "healthy",
         "model_status": "loaded" if classifier.model is not None else "not loaded"
@@ -134,7 +125,6 @@ def health_check():
 
 @app.get("/model/info", response_model=ModelInfo)
 async def model_info():
-    """Returnerer model information"""
     if classifier.model is None:
         return ModelInfo(
             name=classifier.model_name,
@@ -149,7 +139,6 @@ async def model_info():
 
 @app.post("/image_classify", response_model=ClassificationResponse)
 async def classify_image(request: ImageRequest):
-    """Klassificerer et base64 encoded billede"""
     try:
         image = decode_base64_image(request.image)
         result = await classifier.classify_image(image)
