@@ -40,9 +40,56 @@ CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
 - Uploadet `main.py` og `requirements.txt` til `/home/ubuntu/Miniprojekt-AISI`
 - Brugte SSHFS/SCP
 
-### ⏳ Step 2: Build & Run (Næste)
+### ❌ Step 2: Build & Run (Fejlet)
+- **Fejl:** Server crashede under `docker build` (sandsynligvis OOM - Out Of Memory)
+- **Status:** Server svarer ikke (Connection timed out)
+- **Løsning:** Skal genstartes via AWS Console
+- **Forebyggelse:** Vi skal oprette en swap file før næste forsøg
+- ✅ **Løst:** Oprettet 2GB swap file (se nedenfor)
 
-**Fejl:** `Connection timed out during banner exchange`
+### ✅ Step 3: Recovery & Build (I Gang)
+1. ✅ Oprettet 2GB swap file
+2. ✅ Clonet repo på ny
+3. ✅ Docker build færdig (Success!)
+
+**Swap file oprettelse:**
+```bash
+sudo fallocate -l 2G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+```
+Resultat: `Swap: 2.0Gi` tilgængelig.
+
+**Build Resultat:**
+- Image: `cifar10-api:v1.0`
+- Status: Success
+
+### ⏳ Step 4: Run Container (Næste)
+- Kør container med restart policy
+- Verificer health check
+
+**Kommando:**
+```bash
+docker run -d -p 8000:8000 --restart unless-stopped --name cifar10-api cifar10-api:v1.0
+```
+Resultat: Container ID `0aa8fad...`
+
+### ✅ Step 5: Verify on Server (Success)
+- `curl http://localhost:8000/health`
+- Resultat: `{"status":"healthy","model_status":"loaded"}`
+
+### ✅ Step 6: Verify External Access (Success)
+- Test: `curl http://51.21.200.191:8000/health`
+- Resultat: `{"status":"healthy","model_status":"loaded"}`
+- **Status:** Deployment Fuldført! 🚀
+
+### 🏁 Konklusion
+Serveren kører nu korrekt på EC2 og kan tilgås udefra.
+- **IP:** 51.21.200.191
+- **Port:** 8000
+- **API:** http://51.21.200.191:8000
+
 **Server:** 51.21.200.191:22
 **SSH Key:** `~/Downloads/login.pem`
 

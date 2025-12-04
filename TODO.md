@@ -1,7 +1,7 @@
 # TODO Liste - Mini Projekt AI Systems & Infrastructure
 
 **Deadline:** 4. december 2025 kl. 23:59 (Copenhagen time)  
-**Status:** 18/26 opgaver færdige (69%) - KUN PÅKRÆVET  
+**Status:** 23/26 opgaver færdige (88%) - KUN PÅKRÆVET  
 **Model:** CIFAR-10 (10 klasser image classification)  
 **Server:** EC2 (51.21.200.191)
 
@@ -77,11 +77,11 @@
 
 - [x] **Upload kode til EC2 serveren** - Via SSHFS (`./mount_ec2.sh`) eller SCP til `/home/ubuntu/` ✅
   - **Note:** `main.py` og `requirements.txt` er uploadet til `~/cifar10-api/` ✅
-- [ ] **Build container på EC2** - `docker build -t cifar10-api:v1.0 .` på serveren
-- [ ] **Kør container på EC2** - Med port mapping:
+- [x] **Build container på EC2** - `docker build -t cifar10-api:v1.0 .` på serveren ✅
+- [x] **Kør container på EC2** - Med port mapping: ✅
   - `docker run -d -p 8000:8000 --restart unless-stopped --name cifar10-api cifar10-api:v1.0`
-- [ ] **Test API fra serveren** - Lokalt med `curl http://localhost:8000/health` og verificer serveren kører
-- [ ] **Verificer forskellige host environments** - Server på EC2 (51.21.200.191), klient på lokal PC (PÅKRÆVET)
+- [x] **Test API fra serveren** - Lokalt med `curl http://localhost:8000/health` og verificer serveren kører ✅
+- [x] **Verificer forskellige host environments** - Server på EC2 (51.21.200.191), klient på lokal PC (PÅKRÆVET) ✅
 
 ---
 
@@ -91,7 +91,7 @@
 - [x] **Implementer API kald** - Test endpoints: ✅
   - GET `/health` - Tjek server status ✅
   - POST `/image_classify` - Send billede og få CIFAR-10 predictions ✅
-- [ ] **Test klient fra lokal maskine** - Mod serveren på EC2 (51.21.200.191:8000) - PÅKRÆVET (forskellige host environments)
+- [x] **Test klient fra lokal maskine** - Mod serveren på EC2 (51.21.200.191:8000) - PÅKRÆVET (forskellige host environments) ✅
 
 ---
 
@@ -279,11 +279,11 @@
 #### Peter - EC2 Deployment (5 opgaver)
 - [x] **Upload kode til EC2 serveren** - Via SSHFS (`./mount_ec2.sh`) eller SCP til `/home/ubuntu/` ✅
   - **Note:** `main.py` og `requirements.txt` er uploadet til `~/cifar10-api/` ✅
-- [ ] **Build container på EC2** - `docker build -t cifar10-api:v1.0 .` på serveren
-- [ ] **Kør container på EC2** - Med port mapping:
+- [x] **Build container på EC2** - `docker build -t cifar10-api:v1.0 .` på serveren ✅
+- [x] **Kør container på EC2** - Med port mapping: ✅
   - `docker run -d -p 8000:8000 --restart unless-stopped --name cifar10-api cifar10-api:v1.0`
-- [ ] **Test API fra serveren** - Lokalt på EC2 med `curl http://localhost:8000/health` og `curl http://localhost:8000/model/info`
-- [ ] **Åbn port 8000 i Security Group** - Tillad ekstern adgang til API'en
+- [x] **Test API fra serveren** - Lokalt på EC2 med `curl http://localhost:8000/health` og `curl http://localhost:8000/model/info` ✅
+- [x] **Åbn port 8000 i Security Group** - Tillad ekstern adgang til API'en ✅
 
 **Peter's område (arbejder uafhængigt):**
 - EC2 server deployment
@@ -303,7 +303,7 @@
 - [x] **Implementer API kald** - Test endpoints: ✅
   - GET `/health` - Tjek server status ✅
   - POST `/image_classify` - Send billede og få CIFAR-10 predictions ✅
-- [ ] **Test klient fra lokal maskine** - Mod serveren på EC2 (51.21.200.191:8000) - PÅKRÆVET
+- [x] **Test klient fra lokal maskine** - Mod serveren på EC2 (51.21.200.191:8000) - PÅKRÆVET ✅
 
 **Jonas' filer (arbejder uafhængigt):**
 - `client.py`
