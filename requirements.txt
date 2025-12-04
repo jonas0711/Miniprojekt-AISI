@@ -3,22 +3,14 @@ fastapi==0.104.1
 uvicorn[standard]==0.24.0
 python-multipart==0.0.6
 
-# Pydantic til data validation
 pydantic==2.5.0
 
-# HTTP client (til klientprogram)
 requests==2.31.0
 
-# Image processing
 pillow==10.1.0
 
-# PyTorch og computer vision
 torch==2.1.0
 torchvision==0.16.0
-
-# Logging (built-in, men eksplicit for klarhed)
-# logging er en del af Python standard library
-
 
 # NumPy version pinning (fix for torch compatibility)
 numpy<2
