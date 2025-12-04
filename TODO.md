@@ -1,7 +1,7 @@
 # TODO Liste - Mini Projekt AI Systems & Infrastructure
 
 **Deadline:** 4. december 2025 kl. 23:59 (Copenhagen time)  
-**Status:** 23/26 opgaver færdige (88%) - KUN PÅKRÆVET  
+**Status:** 24/26 opgaver færdige (92%) - KUN PÅKRÆVET  
 **Model:** CIFAR-10 (10 klasser image classification)  
 **Server:** EC2 (51.21.200.191)
 
@@ -99,7 +99,7 @@
 
 - [x] **Skriv Introduction** - Med problem analyse ✅ (`RAPPORT_INTRODUCTION.md`)
 - [x] **Skriv Implementation sektion** - API server + klient design valg ✅ (`RAPPORT_IMPLEMENTATION.md`)
-- [ ] **Skriv Deployment sektion** - Vigtige steps i deployment (Peter)
+- [x] **Skriv Deployment sektion** - Vigtige steps i deployment (Peter) ✅ (`RAPPORT_DEPLOYMENT.md`)
 - [ ] **Skriv Results sektion** - Evaluering og reflektioner (Begge)
 - [ ] **Skriv Conclusion** - Afsluttende konklusion (Begge)
 
