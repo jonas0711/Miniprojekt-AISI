@@ -19,3 +19,6 @@ torchvision==0.16.0
 # Logging (built-in, men eksplicit for klarhed)
 # logging er en del af Python standard library
 
+
+# NumPy version pinning (fix for torch compatibility)
+numpy<2
