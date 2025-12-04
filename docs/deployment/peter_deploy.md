@@ -156,12 +156,68 @@ curl http://51.21.200.191:8000/health
 
 ---
 
-## Næste Skridt
+## 🎉 DEPLOYMENT FÆRDIG!
 
-Peter skal:
-1. ✅ Løs SSH connection problem (AWS Security Group)
-2. ⏳ Kør deployment commands ovenfor
-3. ⏳ Test API virker på EC2
-4. ⏳ Åbn port 8000 i Security Group
-5. ⏳ Test API fra lokal PC (forskellige host environments)
+**Dato:** 3. december 2025 kl. 17:30
+
+### ✅ Alle Opgaver Gennemført:
+
+1. ✅ SSH connection til EC2 genoprettet (instance restarted)
+2. ✅ Docker image bygget på EC2: `cifar10-api:v1.1` (5.16GB)
+3. ✅ Container kører på EC2: Container ID `2a997915acb6`
+4. ✅ API svarer på EC2:
+   - `/health` → `{"status":"healthy","model_status":"loaded"}` ✅
+   - `/model/info` → `{"name":"ResNet-18 (CIFAR-10)","status":"loaded","num_labels":10}` ✅
+5. ✅ Port 8000 åben i AWS Security Group
+6. ✅ API tilgængelig fra lokal PC: `http://51.21.200.191:8000` ✅
+
+### Container Status:
+```bash
+Container ID: 2a997915acb6
+Image: cifar10-api:v1.1
+Status: Up 3 hours
+Ports: 0.0.0.0:8000->8000/tcp, [::]:8000->8000/tcp
+```
+
+### Test Resultater:
+
+**Fra EC2 (localhost):**
+```bash
+curl http://localhost:8000/health
+# → {"status":"healthy","model_status":"loaded"}
+
+curl http://localhost:8000/model/info
+# → {"name":"ResNet-18 (CIFAR-10)","status":"loaded","num_labels":10}
+```
+
+**Fra lokal PC (ekstern adgang):**
+```bash
+curl http://51.21.200.191:8000/health
+# → {"status":"healthy","model_status":"loaded"} ✅
+```
+
+### ✅ Krav Verificeret:
+
+- ✅ **Containerization:** Docker container kører på EC2 (PÅKRÆVET)
+- ✅ **Forskellige host environments:** Server (EC2 51.21.200.191) + Klient (lokal PC) (PÅKRÆVET)
+- ✅ **API med AI funktionalitet:** CIFAR-10 image classification (PÅKRÆVET)
+- ✅ **Mindst 2 routes:** `/health`, `/model/info`, `/image_classify` (PÅKRÆVET)
+- ✅ **Proper Dockerfile layering:** requirements.txt kopieret først (TIP)
+
+### Peter's Opgaver - ALLE FÆRDIGE! 🎉
+
+**Docker Setup:**
+- ✅ `.dockerignore` oprettet
+- ✅ `Dockerfile` med proper layering
+- ✅ Docker build og test lokalt
+
+**EC2 Deployment:**
+- ✅ Upload kode til EC2
+- ✅ Build container på EC2
+- ✅ Kør container med port mapping
+- ✅ Test API fra serveren
+- ✅ Port 8000 åben eksternt
+- ✅ Test fra lokal PC
+
+**Status:** Peter's deployment er 100% færdig! ✅
 
