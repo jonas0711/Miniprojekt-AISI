@@ -8,6 +8,8 @@ Denne guide beskriver hvordan man forbinder til projektets EC2 server, både via
 - **DNS:** (Brug IP adressen)
 - **Region:** eu-north-1 (Stockholm)
 - **OS:** Ubuntu 24.04 LTS
+- **Status:** ✅ Online (v1.1)
+
 
 ---
 
