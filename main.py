@@ -1,7 +1,3 @@
-"""
-FastAPI Server for CIFAR-10 Image Classification
-Baseret på Modul 3: Wrap AI Models with APIs
-"""
 
 from fastapi import FastAPI, HTTPException
 from contextlib import asynccontextmanager
